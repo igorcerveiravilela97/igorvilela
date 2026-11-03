@@ -102,6 +102,17 @@
       .entry { break-inside: avoid; padding: .45rem 0; border: 0; }
       .entry h2 { font-size: 12pt; }
     }
+    .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
+    .editor { margin-block: 1rem; padding: clamp(1rem, 4vw, 1.75rem); background: white; border: 1px solid var(--line); border-radius: .9rem; }
+    .editor h2 { font-size: 1.4rem; }
+    .editor p { margin-top: .45rem; }
+    .editor form { display: grid; gap: .75rem; margin-block: 1rem; }
+    .editor label { display: grid; gap: .25rem; font-weight: 650; }
+    .editor select, .editor input { max-width: 100%; min-width: 0; width: min(100%, 36rem); font: inherit; }
+    .editor select, .editor input[type="text"] { border: 1px solid #a6acba; border-radius: .35rem; padding: .45rem; }
+    .editor .button { justify-self: start; }
+    .editor-status { overflow-wrap: anywhere; }
+    @media print { .editor { display: none !important; } }
   </style>
 </head>
 <body>
@@ -128,6 +139,7 @@
           </div>
           <div class="profile-links">
             <a href="https://github.com/igorcerveiravilela97">GitHub</a>
+            <a href="https://orcid.org/0009-0006-5597-7451">ORCID</a>
           </div>
         </aside>
         <div>
@@ -144,7 +156,20 @@
     </section>
     <noscript><p class="wrap">Enable JavaScript to browse the CV sections.</p></noscript>
   </main>
-  <footer><div class="wrap">Igor Vilela · CV &amp; Portfolio</div></footer>
+  <aside class="wrap editor" id="attachment-editor" aria-labelledby="editor-title" hidden>
+    <h2 id="editor-title">Add files to your CV</h2>
+    <p>Choose where a file belongs and preview it in the CV. Draft files stay in this browser tab until you export them.</p>
+    <form id="file-form">
+      <label>Destination <select id="file-target"></select></label>
+      <label>Attachment label (optional) <input id="file-label" type="text" maxlength="120" placeholder="Example: Conference poster"></label>
+      <label>PDF or image <input id="file-input" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.gif,.avif" multiple required></label>
+      <button class="button" type="submit">Add to draft</button>
+    </form>
+    <button id="export-files" class="button secondary" type="button" disabled>Export ZIP for GitHub</button>
+    <p id="editor-status" class="editor-status" role="status"></p>
+    <p>Extract the ZIP and commit the updated <code>index.html</code> and <code>assets/</code> folder to your GitHub branch. Files already in the repository can stay where they are.</p>
+  </aside>
+  <footer><div class="wrap footer-row"><span>Igor Vilela · CV &amp; Portfolio</span><a href="#attachment-editor">Manage attachments</a></div></footer>
 
   <!-- EDIT CV CONTENT HERE.
        Upload public files to assets/ on GitHub, then use their relative paths here.
@@ -156,90 +181,116 @@
        Put those objects inside the relevant entry's attachments array. Keep valid JSON.
   -->
   <script type="application/json" id="cv-data">
-  {
-    "profilePhoto": "",
-    "cvPdf": "",
-    "sections": [
-      {
-        "id": "experience",
-        "title": "Experience",
-        "number": "01",
-        "intro": "Professional work in electronics repair and development.",
-        "entries": [
-          {
-            "title": "Electronics Technician",
-            "meta": "Mixtrónica",
-            "description": "Electronics repair and development, including fault diagnosis and troubleshooting.",
-            "attachments": []
-          }
-        ]
-      },
-      {
-        "id": "education",
-        "title": "Education",
-        "number": "02",
-        "intro": "Academic training in electrical and computer engineering.",
-        "entries": [
-          {
-            "title": "Master’s studies in Electrical Engineering",
-            "meta": "Coimbra Institute of Engineering (ISEC)",
-            "description": "Master’s project on multi-stage object detection for electrical grid asset inspection.",
-            "attachments": []
-          },
-          {
-            "title": "Bachelor’s degree in Electrical and Computer Engineering",
-            "meta": "Coimbra Institute of Engineering (ISEC) · 2024 · Final grade 19/20",
-            "attachments": []
-          }
-        ]
-      },
-      {
-        "id": "projects",
-        "title": "Projects",
-        "number": "03",
-        "intro": "Applied computer vision for aerial inspection of electrical grid assets.",
-        "entries": [
-          {
-            "title": "Multi-stage inspection of high-voltage insulators",
-            "meta": "Master’s project · YOLO · Aerial inspection",
-            "description": "I evaluated whether locating insulators first and assessing their condition in individual crops improves defect detection in aerial images. The two-stage approach improved detection metrics in the RECPAD 2026 evaluation with 640-pixel inputs.",
-            "steps": ["Locate insulators", "Extract crops from the original image", "Assess insulator condition"],
-            "attachments": []
-          },
-          {
-            "title": "Transfer learning and input resolution",
-            "meta": "YOLOv11 · Insulator Defect Image Dataset",
-            "description": "I compared five YOLOv11 model sizes at three input resolutions. YOLOv11-L at 1280 pixels achieved the highest mean test mAP@50 in the comparison (0.892).",
-            "attachments": []
-          }
-        ]
-      },
-      {
-        "id": "publications",
-        "title": "Publications & conferences",
-        "number": "04",
-        "intro": "Conference papers and poster presentations on high-voltage insulator inspection.",
-        "entries": [
-          {
-            "label": "RECPAD 2026 · Viseu, Portugal",
-            "title": "Multi-Stage Object Detection for Electrical Grid Asset Inspection",
-            "meta": "Igor Vilela, Pedro Rocha, Fernando Lopes and Luís Cruz",
-            "description": "Conference paper and poster on separating insulator localisation from condition assessment in drone imagery.",
-            "attachments": []
-          },
-          {
-            "label": "RECPAD 2025 · Aveiro, Portugal",
-            "title": "Optimizing Transfer Learning with High-Resolution Datasets for Voltage Insulator Defect Detection",
-            "description": "Conference paper and poster on the effect of input resolution and model size on insulator defect detection.",
-            "attachments": []
-          }
-        ]
-      }
-    ]
-  }
+{
+  "profilePhoto": "",
+  "cvPdf": "",
+  "sections": [
+    {
+      "id": "experience",
+      "title": "Experience",
+      "number": "01",
+      "intro": "Professional work in electronics repair and development.",
+      "entries": [
+        {
+          "title": "Electrical and Computer Engineer",
+          "meta": "Mixtrónica · Engineering Department · Coimbra, Portugal · February 2016–present",
+          "description": "I diagnose, troubleshoot and repair electronic equipment, including control boards and industrial systems. I also design and develop customised hardware and software to meet client requirements.",
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "number": "02",
+      "intro": "Academic training in electrical and computer engineering.",
+      "entries": [
+        {
+          "title": "Master’s in Electrical Engineering",
+          "meta": "Coimbra Institute of Engineering (ISEC) · September 2024–present",
+          "description": "Specialisation in Automation and Communications in Power Systems. Dissertation: Multi-Stage Object Detection for Electrical Grid Asset Inspection. Supervisor: Fernando J. P. Lopes. Co-supervisor: Luís Alberto da Silva Cruz.",
+          "attachments": []
+        },
+        {
+          "title": "Bachelor’s degree in Electrical and Computer Engineering",
+          "meta": "Coimbra Institute of Engineering (ISEC) · September 2020–July 2024 · Degree grade 15/20",
+          "attachments": [],
+          "description": "Final project: LoRa-Based Data Reading and Processing System for an Industrial Production Line. Project grade: 19/20."
+        }
+      ]
+    },
+    {
+      "id": "projects",
+      "title": "Projects",
+      "number": "03",
+      "intro": "Applied computer vision for aerial inspection of electrical grid assets.",
+      "entries": [
+        {
+          "title": "Multi-stage inspection of high-voltage insulators",
+          "meta": "Master’s project · YOLO · Aerial inspection",
+          "description": "I evaluated whether locating insulators first and assessing their condition in individual crops improves defect detection in aerial images. The two-stage approach improved detection metrics in the RECPAD 2026 evaluation with 640-pixel inputs.",
+          "steps": [
+            "Locate insulators",
+            "Extract crops from the original image",
+            "Assess insulator condition"
+          ],
+          "attachments": []
+        },
+        {
+          "title": "Transfer learning and input resolution",
+          "meta": "YOLOv11 · Insulator Defect Image Dataset",
+          "description": "I compared five YOLOv11 model sizes at three input resolutions. YOLOv11-L at 1280 pixels achieved the highest mean test mAP@50 in the comparison (0.892).",
+          "attachments": []
+        },
+        {
+          "title": "LoRa-Based Data Reading and Processing System for an Industrial Production Line",
+          "meta": "Bachelor’s final project · 2024 · Igor Vilela and Gabriel Pascoal Jorge",
+          "attachments": []
+        },
+        {
+          "title": "LoRa-Based Greenhouse Monitoring System",
+          "meta": "Technical report · 2023",
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "id": "publications",
+      "title": "Publications & conferences",
+      "number": "04",
+      "intro": "Conference papers and poster presentations on high-voltage insulator inspection.",
+      "entries": [
+        {
+          "label": "RECPAD 2026 · Viseu, Portugal",
+          "title": "Multi-Stage Object Detection for Electrical Grid Asset Inspection",
+          "meta": "Igor Vilela, Pedro Rocha, Fernando Lopes and Luís Cruz",
+          "description": "Conference paper and poster on separating insulator localisation from condition assessment in drone imagery. Accepted for publication.",
+          "attachments": []
+        },
+        {
+          "label": "IEEE ICIP 2026",
+          "title": "Leveraging Error-Tolerance Asymmetry in Electrical Grid Automated Visual Inspection with a Semi-Supervised Annotation Pipeline",
+          "meta": "Pedro Daniel Rocha, Fernando J. P. Lopes, Luís A. da Silva Cruz, Igor Vilela and André Coelho",
+          "description": "Published conference paper.",
+          "attachments": []
+        },
+        {
+          "label": "RECPAD 2025 · Aveiro, Portugal",
+          "title": "Optimizing Transfer Learning with High-Resolution Datasets for Voltage Insulator Defect Detection",
+          "description": "Published conference paper and poster on the effect of input resolution and model size on insulator defect detection.",
+          "attachments": [],
+          "meta": "Igor Vilela, Pedro Daniel Rocha and Fernando J. P. Lopes"
+        }
+      ]
+    }
+  ]
+}
   </script>
   <script>
-    const cv = JSON.parse(document.getElementById('cv-data').textContent);
+    const templateSource = '<!doctype html>\n' + document.documentElement.outerHTML;
+    const dataScript = document.getElementById('cv-data');
+    const cv = JSON.parse(dataScript.textContent);
+    const stagedFiles = new Map();
     const main = document.getElementById('content');
     const navLinks = [...document.querySelectorAll('nav a')];
 
@@ -252,7 +303,7 @@
 
     function fileLink({ label, src }) {
       const link = element('a', '', label);
-      link.href = src;
+      link.href = stagedFiles.get(src)?.url || src;
       return link;
     }
 
@@ -277,7 +328,7 @@
           const figure = element('figure');
           const link = fileLink(attachment);
           const image = element('img');
-          image.src = attachment.src;
+          image.src = link.href;
           image.alt = attachment.alt || attachment.label;
           image.loading = 'lazy';
           link.replaceChildren(image);
@@ -294,6 +345,7 @@
       return card;
     }
 
+    const entryLists = new Map();
     for (const section of cv.sections) {
       const page = element('section', 'chapter');
       page.id = section.id;
@@ -308,34 +360,39 @@
       header.append(element('p', 'eyebrow', 'Curriculum vitae / ' + section.number), heading, element('p', '', section.intro));
       const entries = element('div', 'entries');
       for (const entry of section.entries) entries.append(renderEntry(entry));
+      entryLists.set(section.id, entries);
       inner.append(header, entries);
       page.append(inner);
       main.append(page);
     }
 
-    if (cv.profilePhoto) {
-      const photo = element('img');
-      photo.src = cv.profilePhoto;
-      photo.alt = '';
-      document.getElementById('avatar').replaceChildren(photo);
+    const download = document.getElementById('download-cv');
+    const print = document.getElementById('print-cv');
+    print.addEventListener('click', () => window.print());
+
+    function renderProfileFiles() {
+      if (cv.profilePhoto) {
+        const photo = element('img');
+        photo.src = stagedFiles.get(cv.profilePhoto)?.url || cv.profilePhoto;
+        photo.alt = '';
+        document.getElementById('avatar').replaceChildren(photo);
+      }
+      if (cv.cvPdf) {
+        download.href = stagedFiles.get(cv.cvPdf)?.url || cv.cvPdf;
+        download.download = cv.cvPdf.split('/').pop();
+      }
+      download.hidden = !cv.cvPdf;
+      print.hidden = Boolean(cv.cvPdf);
     }
 
-    if (cv.cvPdf) {
-      const download = document.getElementById('download-cv');
-      download.href = cv.cvPdf;
-      download.hidden = false;
-    } else {
-      const print = document.getElementById('print-cv');
-      print.hidden = false;
-      print.addEventListener('click', () => window.print());
-    }
+    renderProfileFiles();
 
     const pages = [...main.querySelectorAll(':scope > section')];
     let activePage = null;
 
     function showPage(focusHeading) {
       const id = location.hash.slice(1);
-      if (id === 'content' && activePage) return;
+      if (id === 'content' || id === 'attachment-editor') return;
       const page = pages.find(section => section.id === id) || pages[0];
       if (page === activePage) return;
       for (const section of pages) section.hidden = section !== page;
@@ -354,6 +411,169 @@
 
     showPage(false);
     window.addEventListener('hashchange', () => showPage(true));
+
+    const editor = document.getElementById('attachment-editor');
+    function openEditor() {
+      if (editor.hidden) {
+        editor.hidden = false;
+        setupEditor();
+      }
+      editor.scrollIntoView();
+    }
+    document.querySelector('footer a').addEventListener('click', openEditor);
+    if (location.hash === '#attachment-editor') openEditor();
+
+    function setupEditor() {
+      const form = document.getElementById('file-form');
+      const target = document.getElementById('file-target');
+      const input = document.getElementById('file-input');
+      const label = document.getElementById('file-label');
+      const status = document.getElementById('editor-status');
+      const exportButton = document.getElementById('export-files');
+      const fileTypes = /\.(pdf|jpe?g|png|webp|gif|avif)$/i;
+      const destinations = new Map([['cvPdf', null], ['profilePhoto', null]]);
+      target.add(new Option('Downloadable CV (PDF)', 'cvPdf'));
+      target.add(new Option('Profile photo', 'profilePhoto'));
+
+      for (const section of cv.sections) {
+        const group = element('optgroup');
+        group.label = section.title;
+        section.entries.forEach((entry, index) => {
+          const key = section.id + '-' + index;
+          destinations.set(key, { entry, section, index });
+          group.append(new Option(entry.title, key));
+        });
+        target.add(group);
+      }
+
+      const usedPaths = new Set([cv.cvPdf, cv.profilePhoto,
+        ...cv.sections.flatMap(section => section.entries.flatMap(entry => (entry.attachments ?? []).map(file => file.src)))]);
+
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const key = target.value;
+        const destination = destinations.get(key);
+        const files = [...input.files];
+        if (!files.length) return;
+        if (!destination && files.length !== 1) {
+          status.textContent = 'Select one file for the CV or profile photo.';
+          return;
+        }
+        if (files.some(file => !fileTypes.test(file.name) || file.size === 0 || file.size > 25 * 1024 * 1024
+          || (key === 'cvPdf' && !/\.pdf$/i.test(file.name)) || (key === 'profilePhoto' && /\.pdf$/i.test(file.name)))) {
+          status.textContent = 'Check the file type and size. Use a non-empty PDF or supported image up to 25 MiB.';
+          return;
+        }
+        if (stagedFiles.size + files.length > 90) {
+          status.textContent = 'Export and commit this draft before adding more files.';
+          return;
+        }
+
+        for (const file of files) {
+          const dot = file.name.lastIndexOf('.');
+          const name = file.name.slice(0, dot).normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80) || 'file';
+          const extension = file.name.slice(dot).toLowerCase();
+          let path = 'assets/' + name + extension;
+          for (let suffix = 2; usedPaths.has(path); suffix++) path = 'assets/' + name + '-' + suffix + extension;
+          usedPaths.add(path);
+          if (!destination && stagedFiles.has(cv[key])) {
+            URL.revokeObjectURL(stagedFiles.get(cv[key]).url);
+            stagedFiles.delete(cv[key]);
+          }
+          stagedFiles.set(path, { file, url: URL.createObjectURL(file) });
+          if (destination) {
+            const kind = extension === '.pdf' ? 'pdf' : 'image';
+            const displayName = files.length === 1 && label.value.trim() ? label.value.trim() : file.name.slice(0, dot);
+            (destination.entry.attachments ??= []).push({ kind, label: displayName, src: path });
+          } else {
+            cv[key] = path;
+          }
+        }
+
+        if (destination) {
+          entryLists.get(destination.section.id).children[destination.index].replaceWith(renderEntry(destination.entry));
+        } else {
+          renderProfileFiles();
+        }
+        input.value = '';
+        label.value = '';
+        exportButton.disabled = false;
+        status.replaceChildren(document.createTextNode(files.length + ' file(s) added to this draft. '));
+        const preview = element('a', '', 'View in CV');
+        preview.href = '#' + (destination?.section.id || 'about');
+        preview.addEventListener('click', () => window.scrollTo(0, 0));
+        status.append(preview);
+      });
+
+      exportButton.addEventListener('click', async () => {
+        exportButton.disabled = true;
+        try {
+          const updated = templateSource.replace(/(<script type="application\/json" id="cv-data">)[\s\S]*?(<\/script>)/,
+            (_, open, close) => open + '\n' + JSON.stringify(cv, null, 2).replace(/</g, '\\u003c') + '\n  ' + close);
+          const files = [['index.html', new TextEncoder().encode(updated)]];
+          for (const [path, { file }] of [...stagedFiles]) {
+            files.push([path, new Uint8Array(await file.arrayBuffer())]);
+          }
+          const link = element('a');
+          link.download = 'igor-vilela-cv-update.zip';
+          link.href = URL.createObjectURL(makeZip(files));
+          link.click();
+          setTimeout(() => URL.revokeObjectURL(link.href), 30000);
+          status.textContent = 'ZIP exported. Extract it and commit the files to GitHub.';
+        } catch {
+          status.textContent = 'Could not export the draft. Try again with fewer files.';
+        } finally {
+          exportButton.disabled = false;
+        }
+      });
+    }
+
+    // A ZIP with stored files keeps original PDFs and images byte-for-byte intact.
+    function makeZip(files) {
+      const encoder = new TextEncoder();
+      const local = [];
+      const directory = [];
+      const table = Uint32Array.from({ length: 256 }, (_, n) => {
+        for (let bit = 0; bit < 8; bit++) n = (n >>> 1) ^ ((n & 1) ? 0xedb88320 : 0);
+        return n;
+      });
+      let offset = 0;
+      let directorySize = 0;
+
+      for (const [path, bytes] of files) {
+        const name = encoder.encode(path);
+        let checksum = 0xffffffff;
+        for (const byte of bytes) checksum = (checksum >>> 8) ^ table[(checksum ^ byte) & 255];
+        checksum = (checksum ^ 0xffffffff) >>> 0;
+
+        const header = new DataView(new ArrayBuffer(30));
+        header.setUint32(0, 0x04034b50, true);
+        header.setUint16(4, 20, true);
+        header.setUint16(12, 33, true);
+        header.setUint32(14, checksum, true);
+        header.setUint32(18, bytes.length, true);
+        header.setUint32(22, bytes.length, true);
+        header.setUint16(26, name.length, true);
+        local.push(header.buffer, name, bytes);
+
+        const record = new DataView(new ArrayBuffer(46));
+        record.setUint32(0, 0x02014b50, true);
+        record.setUint16(4, 20, true);
+        new Uint8Array(record.buffer, 6, 26).set(new Uint8Array(header.buffer, 4, 26));
+        record.setUint32(42, offset, true);
+        directory.push(record.buffer, name);
+        directorySize += record.byteLength + name.length;
+        offset += header.byteLength + name.length + bytes.length;
+      }
+
+      const end = new DataView(new ArrayBuffer(22));
+      end.setUint32(0, 0x06054b50, true);
+      end.setUint16(8, files.length, true);
+      end.setUint16(10, files.length, true);
+      end.setUint32(12, directorySize, true);
+      end.setUint32(16, offset, true);
+      return new Blob([...local, ...directory, end.buffer], { type: 'application/zip' });
+    }
   </script>
 </body>
 </html>
