@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Igor Vilela’s CV and portfolio in electronics, computer vision and electrical grid inspection.">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>Igor Vilela · CV &amp; Portfolio</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f5ef;
+      --ink: #142d2c;
+      --muted: #425954;
+      --line: #c4d0c8;
+      --accent: #185d49;
+      --panel: #e6eee7;
+      --measure: 65rem;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 system-ui, sans-serif; }
+    a { color: var(--accent); text-underline-offset: .22em; }
+    a:hover { text-decoration-thickness: .14em; }
+    :focus-visible { outline: 3px solid #986016; outline-offset: 4px; }
+    .wrap { width: min(calc(100% - 2.5rem), var(--measure)); margin-inline: auto; }
+    .skip { position: absolute; left: 1rem; top: -5rem; background: var(--paper); padding: .6rem; z-index: 1; }
+    .skip:focus { top: 1rem; }
+    .bar, nav, .actions { display: flex; gap: .6rem 1.25rem; flex-wrap: wrap; align-items: center; }
+    .bar { justify-content: space-between; padding-block: 1rem; border-bottom: 1px solid var(--line); }
+    .brand { font-weight: 750; }
+    nav a { font-size: .9rem; font-weight: 600; }
+    .hero { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2rem; align-items: end; padding-block: clamp(2.5rem, 8vw, 6rem); }
+    .eyebrow { color: var(--accent); font-size: .75rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-family: Georgia, serif; font-size: clamp(3rem, 9vw, 6.75rem); font-weight: 500; letter-spacing: -.065em; line-height: 1; margin-block: .35em .2em; }
+    .lead { font-size: clamp(1.05rem, 2.5vw, 1.35rem); max-width: 32ch; }
+    .intro { color: var(--muted); max-width: 56ch; margin-top: .85rem; }
+    .actions { margin-top: 1.5rem; }
+    .button { border: 0; border-radius: .3rem; background: var(--accent); color: white; font: inherit; font-weight: 650; padding: .6rem 1rem; cursor: pointer; }
+    .button[hidden] { display: none; }
+    .button:hover { background: var(--ink); }
+    .focus { padding: 1.35rem; border: 1px solid var(--line); border-radius: .45rem; background: var(--panel); }
+    .focus ul { margin: .7rem 0 0; padding-left: 1.1rem; }
+    section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 1rem 2.5rem; border-top: 1px solid var(--line); padding-block: 2.15rem; }
+    h2 { font-family: Georgia, serif; font-size: clamp(1.65rem, 4vw, 2.2rem); font-weight: 500; line-height: 1.15; }
+    h3 { font-size: 1.1rem; line-height: 1.35; }
+    article + article { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+    article p + p, article h3 + p { margin-top: .45rem; }
+    .meta { color: var(--muted); font-size: .92rem; }
+    .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; list-style: none; padding: 0; margin: .9rem 0 0; counter-reset: step; }
+    .steps li { counter-increment: step; background: var(--panel); border-radius: .3rem; padding: .65rem; font-size: .86rem; font-weight: 650; }
+    .steps li::before { content: "0" counter(step); display: block; font-size: .73rem; letter-spacing: .1em; color: var(--accent); }
+    footer { border-top: 1px solid var(--line); color: var(--muted); padding-block: 1.2rem 2rem; font-size: .9rem; }
+    @media (max-width: 46rem) {
+      .hero, section { grid-template-columns: 1fr; }
+      .hero { align-items: start; gap: 1.5rem; }
+    }
+    @media print {
+      :root { --paper: white; --panel: white; }
+      body { font-size: 10pt; }
+      .wrap { width: 100%; }
+      header, .skip, .actions, footer { display: none; }
+      .hero { grid-template-columns: 2fr 1fr; padding-block: 0 1rem; }
+      h1 { font-size: 36pt; }
+      section { grid-template-columns: 1fr 3fr; padding-block: .85rem; }
+      section h2 { font-size: 15pt; }
+      article { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="wrap">
+    <div class="bar">
+      <span class="brand">Igor Vilela</span>
+      <nav aria-label="CV sections">
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+      </nav>
+    </div>
+  </header>
+  <main id="content" class="wrap">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Curriculum vitae &amp; portfolio</p>
+        <h1>Igor Vilela</h1>
+        <p class="lead">Electronics technician and electrical engineering master’s student</p>
+        <p class="intro">I work in electronics repair and development. My research applies computer vision to electrical grid inspection, with a focus on detecting defects in high-voltage insulators from drone imagery.</p>
+        <div class="actions">
+          <!-- Once the approved PDF is added, replace the print button with a download link. -->
+          <button class="button" id="print-cv" type="button" hidden>Print / Save as PDF</button>
+          <a href="https://github.com/igorcerveiravilela97">GitHub profile</a>
+        </div>
+      </div>
+      <aside class="focus" aria-label="Technical focus">
+        <p class="eyebrow">Technical focus</p>
+        <ul>
+          <li>Electronics repair and development</li>
+          <li>Computer vision and object detection</li>
+          <li>Electrical grid asset inspection</li>
+        </ul>
+      </aside>
+    </div>
+    <section id="experience" aria-labelledby="experience-title">
+      <h2 id="experience-title">Experience</h2>
+      <article>
+        <h3>Electronics Technician</h3>
+        <p class="meta">Mixtrónica</p>
+        <p>Electronics repair and development, including fault diagnosis and troubleshooting.</p>
+      </article>
+    </section>
+    <section id="education" aria-labelledby="education-title">
+      <h2 id="education-title">Education</h2>
+      <div>
+        <article>
+          <h3>Master’s studies in Electrical Engineering</h3>
+          <p class="meta">Coimbra Institute of Engineering (ISEC)</p>
+          <p>Master’s project on multi-stage object detection for electrical grid asset inspection.</p>
+        </article>
+        <article>
+          <h3>Bachelor’s degree in Electrical and Computer Engineering</h3>
+          <p class="meta">Coimbra Institute of Engineering (ISEC) · 2024 · Final grade 19/20</p>
+        </article>
+      </div>
+    </section>
+    <section id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+      <div>
+        <article>
+          <h3>Multi-stage inspection of high-voltage insulators</h3>
+          <p class="meta">Master’s project · YOLO · Aerial inspection</p>
+          <p>I evaluated whether locating insulators first and assessing their condition in individual crops improves defect detection in aerial images. The two-stage approach improved detection metrics in the RECPAD 2026 evaluation with 640-pixel inputs.</p>
+          <ol class="steps" aria-label="Inspection pipeline">
+            <li>Locate insulators</li>
+            <li>Extract crops from the original image</li>
+            <li>Assess insulator condition</li>
+          </ol>
+        </article>
+        <article>
+          <h3>Transfer learning and input resolution</h3>
+          <p class="meta">YOLOv11 · Insulator Defect Image Dataset</p>
+          <p>I compared five YOLOv11 model sizes at three input resolutions. YOLOv11-L at 1280 pixels achieved the highest mean test mAP@50 in the comparison (0.892).</p>
+        </article>
+      </div>
+    </section>
+    <section id="publications" aria-labelledby="publications-title">
+      <h2 id="publications-title">Publications &amp; conferences</h2>
+      <div>
+        <article>
+          <p class="eyebrow">RECPAD 2026 · Viseu, Portugal</p>
+          <h3>Multi-Stage Object Detection for Electrical Grid Asset Inspection</h3>
+          <p class="meta">Igor Vilela, Pedro Rocha, Fernando Lopes and Luís Cruz</p>
+          <p>Conference paper and poster on separating insulator localisation from condition assessment in drone imagery.</p>
+          <!-- Add public paper and poster links here when the files are ready. -->
+        </article>
+        <article>
+          <p class="eyebrow">RECPAD 2025 · Aveiro, Portugal</p>
+          <h3>Optimizing Transfer Learning with High-Resolution Datasets for Voltage Insulator Defect Detection</h3>
+          <p>Conference paper and poster on the effect of input resolution and model size on insulator defect detection.</p>
+          <!-- Add public paper and poster links here when the files are ready. -->
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap">Igor Vilela · CV &amp; Portfolio</footer>
+  <script>
+    const printButton = document.getElementById('print-cv');
+    printButton.hidden = false;
+    printButton.addEventListener('click', () => window.print());
+  </script>
+</body>
+</html>
