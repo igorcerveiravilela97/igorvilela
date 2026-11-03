@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Igor Vilela’s CV and portfolio in electronics, computer vision and electrical grid inspection.">
-  <meta name="theme-color" content="#fdfcf9">
+  <meta name="theme-color" content="#faf9f6">
   <title>Igor Vilela · CV &amp; Portfolio</title>
   <style>
     :root {
@@ -13,9 +13,9 @@
       --muted: #515767;
       --blue: #254bd9;
       --blue-dark: #1734a3;
-      --paper: #fdfcf9;
-      --sand: #e9dfd2;
-      --panel: #f6f1ea;
+      --paper: #faf9f6;
+      --sand: #eae2d7;
+      --panel: #fcfaf6;
       --line: #dedad2;
       --wrap: 71rem;
     }
@@ -32,26 +32,25 @@
     .bar, nav, .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem 1.2rem; }
     .bar { justify-content: space-between; min-height: 5rem; padding-block: .85rem; }
     .brand { display: inline-flex; align-items: center; gap: .65rem; color: var(--ink); font-weight: 780; text-decoration: none; }
-    .brand::before { content: ""; width: .7rem; height: .7rem; background: var(--blue); }
-    nav a { color: var(--muted); font-size: .9rem; font-weight: 650; text-decoration: none; padding-block: .22rem; border-bottom: 2px solid transparent; }
-    nav a:hover, nav a[aria-current="page"] { color: var(--blue-dark); border-bottom-color: var(--blue); }
+    .brand::before { content: ""; width: .7rem; height: .7rem; border-radius: .2rem; background: var(--blue); }
+    nav { column-gap: .25rem; }
+    nav a { color: var(--muted); font-size: .88rem; font-weight: 650; text-decoration: none; padding: .35rem .7rem; border-radius: 99rem; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--blue-dark); background: #edf0fd; }
     .home { background: linear-gradient(90deg, var(--sand) 0 39%, var(--paper) 39%); }
-    .home-grid { display: grid; grid-template-columns: minmax(14rem, 20rem) minmax(0, 32rem); align-items: center; justify-content: center; gap: clamp(2rem, 6vw, 5rem); padding-block: clamp(3rem, 8vw, 7.5rem); }
-    .profile { background: var(--panel); text-align: center; box-shadow: 0 18px 45px #31271926; border: 1px solid #fff9; }
+    .home-grid { display: grid; grid-template-columns: minmax(14rem, 19rem) minmax(0, 36rem); align-items: center; justify-content: center; gap: clamp(2rem, 7vw, 6rem); padding-block: clamp(3rem, 10vw, 8.5rem); }
+    .profile { background: var(--panel); text-align: center; border: 1px solid #fffc; border-radius: 1.35rem; overflow: hidden; box-shadow: 0 1px 2px #28251a12, 0 22px 58px #3c302621; }
     .profile-body { padding: 2rem 1.5rem 1.6rem; }
-    .avatar { display: grid; place-items: center; width: 8rem; height: 8rem; margin: 0 auto 1.1rem; border-radius: 50%; background: #ded8cf; color: #333c51; font-size: 2.6rem; letter-spacing: -.08em; font-weight: 750; overflow: hidden; }
+    .avatar { display: grid; place-items: center; width: 8rem; height: 8rem; margin: 0 auto 1.1rem; border-radius: 50%; background: linear-gradient(135deg, #e4eafc, #f1eee9); color: var(--blue-dark); font-size: 2.6rem; letter-spacing: -.08em; font-weight: 750; overflow: hidden; }
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
     .profile-name { font-size: 1.6rem; font-weight: 800; letter-spacing: -.045em; }
-    .profile-name::after { content: ""; display: block; width: 2.4rem; height: 2px; background: var(--blue); margin: .7rem auto .85rem; }
-    .profile-role, .eyebrow { color: var(--muted); font-size: .72rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
-    .profile-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem 1rem; background: white; padding: .75rem; }
+    .eyebrow { color: var(--muted); font-size: .72rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    .profile-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem 1rem; background: white; border-top: 1px solid var(--line); padding: .75rem; }
     .profile-links a { color: var(--ink); font-size: .85rem; font-weight: 700; }
     .eyebrow { color: var(--blue-dark); }
     h1 { font-size: clamp(2.6rem, 7vw, 5.6rem); letter-spacing: -.075em; line-height: 1.02; }
-    .hero-title { margin-block: .45rem .75rem; }
-    .lead { max-width: 33ch; font-size: clamp(1.08rem, 2vw, 1.35rem); line-height: 1.45; font-weight: 660; }
-    .intro { color: var(--muted); margin-top: 1.3rem; max-width: 52ch; }
-    .actions { margin-top: 1.35rem; gap: .6rem; }
+    .hero-title { font-size: clamp(3rem, 8vw, 6.6rem); letter-spacing: -.08em; margin-bottom: .6rem; }
+    .lead { color: var(--muted); font-size: clamp(1.15rem, 2.4vw, 1.55rem); line-height: 1.35; font-weight: 560; }
+    .actions { margin-top: 1.8rem; gap: .65rem; }
     .button { display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--blue); border-radius: 99rem; background: var(--blue); color: white; padding: .55rem 1.1rem; font: inherit; font-size: .89rem; font-weight: 720; text-decoration: none; cursor: pointer; }
     .button:hover { background: var(--blue-dark); }
     .button.secondary { color: var(--ink); background: transparent; border-color: #a6acba; }
@@ -62,7 +61,7 @@
     .chapter h1 { margin-block: .35rem .75rem; font-size: clamp(2.45rem, 6vw, 4.4rem); }
     .chapter-head > p:last-child { color: var(--muted); max-width: 58ch; }
     .entries { display: grid; gap: 1rem; max-width: 53rem; }
-    .entry { background: white; border: 1px solid var(--line); border-left: 3px solid var(--blue); padding: clamp(1.15rem, 3.7vw, 2rem); }
+    .entry { background: white; border: 1px solid var(--line); border-radius: .9rem; padding: clamp(1.15rem, 3.7vw, 2rem); }
     .entry h2 { font-size: clamp(1.22rem, 3vw, 1.65rem); letter-spacing: -.032em; line-height: 1.23; }
     .entry > * + * { margin-top: .65rem; }
     .meta, figcaption { color: var(--muted); font-size: .91rem; }
@@ -81,7 +80,8 @@
     @media (max-width: 43rem) {
       .wrap { width: min(calc(100% - 2rem), var(--wrap)); }
       .bar { align-items: flex-start; flex-direction: column; }
-      nav { column-gap: .8rem; }
+      nav { column-gap: .15rem; }
+      nav a { padding-inline: .52rem; }
       .home { background: linear-gradient(180deg, var(--sand) 0 13rem, var(--paper) 13rem); }
       .home-grid { grid-template-columns: 1fr; }
       .profile { width: min(100%, 19rem); }
@@ -125,23 +125,20 @@
           <div class="profile-body">
             <div id="avatar" class="avatar" aria-hidden="true">IV</div>
             <p class="profile-name">Igor Vilela</p>
-            <p class="profile-role">Electronics &amp; computer vision</p>
           </div>
           <div class="profile-links">
             <a href="https://github.com/igorcerveiravilela97">GitHub</a>
           </div>
         </aside>
         <div>
-          <p class="eyebrow">Curriculum vitae &amp; portfolio</p>
-          <h1 id="about-title" class="hero-title" tabindex="-1">Hello, I’m Igor.</h1>
-          <p class="lead">Electronics technician and electrical engineering master’s student.</p>
+          <h1 id="about-title" class="hero-title" tabindex="-1">Igor Vilela</h1>
+          <p class="lead">Electrical Engineer</p>
           <div class="actions">
             <a class="button" href="#experience">Explore my CV</a>
             <a class="button secondary" href="#projects">View projects</a>
             <a id="download-cv" class="cv-action" download hidden>Download CV</a>
             <button id="print-cv" class="cv-action" type="button" hidden>Print / Save as PDF</button>
           </div>
-          <p class="intro">I work in electronics repair and development. My research applies computer vision to electrical grid inspection, with a focus on detecting defects in high-voltage insulators from drone imagery.</p>
         </div>
       </div>
     </section>
